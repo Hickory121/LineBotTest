@@ -184,12 +184,9 @@ function parseInput(rplyToken, inputStr) {
 	  finalStr= text0 + '：' + text1 + '\n' + equation + ' = ' + answer;
     	  }
 		  else{
-			   if (answer >= 50){ 
+
 		  finalStr= text0 + '：\n' + equation + ' = ' + answer;
-			   }
-			  else{
-finalStr=answer;
-    		  }
+
 
   }
   
