@@ -95,7 +95,8 @@ function parseInput(rplyToken, inputStr) {
 		let mainMsg = inputStr.match(msgSplitor); //定義輸入字串
 		let trigger = mainMsg[0].toString().toLowerCase(); //指定啟動詞在第一個詞&把大階強制轉成細階
                            
-        
+        if (trigger.match(/薏仁吃ㄅㄅ/) != null) return randomReply() ;     
+	
 
          //普通ROLL擲骰判定在此        
      if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/\d+d+\d/)!=null) {
@@ -280,242 +281,31 @@ function BuildRollDice(inputStr){
 }
             
 
-////////////////////////////////////////
-//////////////// nechronica (NC)
-////////////////////////////////////////
-function nechronica(triggermsg ,text) {
-	let returnStr = '';
-	var ncarray = [];
-	var dicemax = 0, dicemin = 0, dicenew = 0;
-
-	var match = /^(\d+)(NC|NA)((\+|-)(\d+)|)$/i.exec(triggermsg);	//判斷式
-
-	for (var i = 0; i < Number(match[1]); i++)	
-	{
-		dicenew = Dice(10) + Number(match[3]);
-		ncarray.push(dicenew);
-	}
-
-	dicemax = Math.max(...ncarray);	//判斷最大最小值
-	dicemin = Math.min(...ncarray);
-
-	if (Number(match[1]) == 1)
-		returnStr += dicemax + '[' + ncarray.pop() + ']'; 
-	else
-	{
-		returnStr += dicemax + '[';
-		for (i = 0; i < Number(match[1]); i++)
-		{
-			if (i != Number(match[1]) - 1)
-				returnStr += ncarray.pop() + ',';
-			else
-				returnStr += ncarray.pop();
-		}
-		returnStr += ']';
-	}
-
-	if (dicemax > 5)
-		if (dicemax > 10)
-			returnStr += ' → 大成功';
-		else
-			returnStr += ' → 成功';
-	else
-		if (dicemin <= 1)
-			returnStr += ' → 大失敗';
-		else
-			returnStr += ' → 失敗';
-
-	if (text != null)
-		returnStr += ' ; ' + text;
-
-	return returnStr;
-}
-
-////////////////////////////////////////
-//////////////// nechronica (NM依戀)
-////////////////////////////////////////
-
-function nechronica_mirenn(text) {
-	let returnStr = '';
-	var dicenew = 0;
-	dicenew = Dice(10)-1;
-
-	// 產生格式
-	if (text != null)
-		returnStr = text + ': \n' + '依戀 (' + (dicenew+1) + '[' + (dicenew+1) + ']) → ' + nechronica_mirenn_table(dicenew);
-	else
-		returnStr = '依戀 (' + (dicenew+1) + '[' + (dicenew+1) + ']) → ' + nechronica_mirenn_table(dicenew);
-
-	return returnStr;
-}
-
-/* 這邊預留 mode 以便未來可以加入其他依戀 */
-function nechronica_mirenn_table(mode) {
-	if (mode == 0) returnStr = '【嫌惡】\n[發狂：敵對認識] 戰鬥中，沒有命中敵方的攻擊，全部都會擊中嫌惡的對象。(如果有在射程內的話)';
-	if (mode == 1) returnStr = '【獨占】\n[發狂：獨占衝動] 戰鬥開始與戰鬥結束，各別選擇損傷1個對象的部件。';
-	if (mode == 2) returnStr = '【依存】\n[發狂：幼兒退行] 妳的最大行動值減少2。';
-	if (mode == 3) returnStr = '【執著】\n[發狂：跟蹤監視] 戰鬥開始與戰鬥結束時，對象對妳的依戀精神壓力點數各增加1點。(如果已經處在精神崩壞狀態，可以不用作此處理)';
-	if (mode == 4) returnStr = '【戀心】\n[發狂：自傷行為] 戰鬥開始與戰鬥結束時，各別選擇損傷1個自己的部件。';
-	if (mode == 5) returnStr = '【對抗】\n[發狂：過度競爭] 戰鬥開始與戰鬥結束時，各別選擇任意依戀，增加1點精神壓力點數。(如果已經處在精神崩壞狀態，可以不用作此處理)';
-	if (mode == 6) returnStr = '【友情】\n[發狂：共鳴依存] 單元結束時，對象的損傷部件比妳還要多的時候，妳的部件損傷數，要增加到與對方相同。';
-	if (mode == 7) returnStr = '【保護】\n[發狂：過度保護] 戰鬥當中，妳跟「依戀的對象」處於不同區域的時候，無法宣告「移動以外的戰鬥宣言」，此外妳沒有辦法把「自身」與「依戀對象」以外的單位當成移動對象。';
-	if (mode == 8) returnStr = '【憧憬】\n[發狂：贗作妄想] 戰鬥當中，妳跟「依戀的對象」處於同樣區域的時候，無法宣告「移動以外的戰鬥宣言」，此外妳沒有辦法把「自身」與「依戀對象」以外的單位當成移動對象。';
-	if (mode == 9) returnStr = '【信賴】\n[發狂：疑心暗鬼] 除了妳以外的所有姊妹，最大行動值減少1。';
-	return returnStr;
-}
-
-
-
-////////////////////////////////////////
-//////////////// D66
-////////////////////////////////////////
-
-function d66(text) {
-
-	let returnStr = '';
-	if(text != null){
-	returnStr =   'D66：' + text + ' → ' + Dice(6) + Dice(6);
-	}
-	else{
-	returnStr = 'D66 → ' + Dice(6) + Dice(6);
-	}
-	return returnStr;
-	
-}
-
-////////////////////////////////////////
-//////////////// D66s
-////////////////////////////////////////
-
-function d66s(text) {
-
-	let temp0 = Dice(6);
-	let temp1 = Dice(6);
-	let returnStr = '';
-	if (temp0>= temp1){
-		let temp2 = temp0;
-		temp0 = temp1;
-		temp1 = temp2;
-	}
-	if(text != null){
-	
-	returnStr =   'D66s：' + text + ' → ' + temp0 + temp1;
-	}
-	else{
-	returnStr = 'D66s → ' +  temp0 + temp1;
-	}
-	return returnStr;
-	
-}
-
-////////////////////////////////////////
-//////////////// xBy
-////////////////////////////////////////
-function xBy(triggermsg ,text01, text02) {
-
-let returnStr = '(' + triggermsg +')';
-let match = /^(\d+)(B)(\d+)$/i.exec(triggermsg);  //判斷式  [0]3B8,[1]3,[2]B,[3]8
-let varcou =  new Array();
-let varsu = 0;
-for (var i = 0; i < Number(match[1]); i++)	
-	{
-             varcou[i] =  Dice(match[3]);
-	}
-varcou.sort(sortNumber);
-//(5B7>6) → 7,5,6,4,4 → 成功数1
-
-if(isNaN(text01) ==false &&Number(text01) <= Number(match[3]))
-{
-for (let i = 0; i < Number(match[1]); i++)	
-	{
-             if(Number(varcou[i])>=Number(text01)) varsu++;        
-	}
-	if (text02 ==undefined) text02 ='';
-
-    returnStr+= ' → ' + varcou + ' → 成功數'+varsu + ' ' +text02 ;
-	
-}
-else{
-	if (text01 ==undefined) text01 ='';
-	returnStr+=  ' → ' + varcou + ' ' +text01 ;
-
-	}
-	
-
-return returnStr;
-}
-
-////////////////////////////////////////
-//////////////// xUy
-////////////////  (5U10[8]) → 17[10,7],4,5,7,4 → 17/37(最大/合計)
-////////////////  (5U10[8]>8) → 1,30[9,8,8,5],1,3,4 → 成功数1
-////////////////////////////////////////
-
-function xUy(triggermsg ,text01, text02, text03) {
-	var match = /^(\d+)(u)(\d+)/i.exec(triggermsg);   //判斷式  5u19,5,u,19, 
-	var returnStr = '('+triggermsg+'['+text01+']';
-	if(Number(text02) <= Number(match[3]) && text02 != undefined) 
-	{
-		returnStr+= '>'+text02+ ') → ';
-		if(text03!=undefined) returnStr += text03 +' → ';
-	}
-	else{
-	returnStr+= ') → ';
-		if(text02!=undefined) returnStr += text02 +' → ';	
-	}	
-	let varcou =  new Array();
-	let varcouloop =  new Array();
-	let varcoufanl =  new Array();
-	let varcounew =  new Array();
-	var varsu = 0;
-	if (text01<=2) { return  '加骰最少比2高'; }
-
-for (var i = 0; i < Number(match[1]); i++)	
-	{
-			varcou[i] =  Dice(match[3]);
-			varcounew[i] = varcou[i];
-			varcouloop[i] = varcounew[i];
-			for(;varcounew[i]>=text01;)
-			{
-				varcounew[i] =Dice(match[3]);
-				varcouloop[i] += ', ' +varcounew[i];
-				varcou[i] += varcounew[i];
-			}
-
-	}
-
-    for(var i = 0; i < varcouloop.length; i++)	
-  {
-	if(varcouloop[i]==varcou[i])   {returnStr += varcou[i]+', ';}
-    else     returnStr += varcou[i]+'['+varcouloop[i]+ '], '; 
-    
-  }
-		returnStr = returnStr.replace(/, $/ig,'');
- 
- 
- 
- if(Number(text02) <= Number(match[3]) ){
-let suc =0;
-
-////////////////  (5U10[8]>8) → 1,30[9,8,8,5],1,3,4 → 成功数1
-for(var i=0;i<varcou.length;i++)
-{
-if(Number(varcou[i])>=Number(text02)) suc++;
-}
-
-returnStr  += ' → 成功数' +suc;
-
- }
- else
-  ////////////////  (5U10[8]) → 17[10,7],4,5,7,4 → 17/37(最大/合計)
-
-	 {
- returnStr  +=' → ' + Math.max.apply(null, varcou)
-returnStr  += '/' + varcou.reduce(function(previousValue,currentValue){
-        return previousValue + currentValue;} ) +'(最大/合計)';
-
-	}
-	return returnStr;
-	
-	}
-
+        function randomReply() {
+          let rplyArr = ['\
+你們死定了呃呃呃不要糾結這些……所以是在糾結哪些？', '\
+在澳洲，每過一分鐘就有一隻鴨嘴獸被拔嘴。 \n我到底在共三小。', '\
+嗚噁噁噁噁噁噁，不要隨便叫我。', '\
+幹，你這學不會的豬！', '\
+嘎嘎嘎。', '\
+wwwwwwwwwwwwwwwww', '\
+為什麼你們每天都可以一直玩；玩就算了還玩我。', '\
+好棒，整點了！咦？不是嗎？', '\
+不要打擾我挖坑！', '好棒，誤點了！', '\
+在南半球，一隻鴨嘴獸拍打他的鰭，他的嘴就會掉下來。 \n我到底在共三小。', '\
+什麼東西你共三小。', '\
+哈哈哈哈哈哈哈哈！', '\
+一直叫，你4不4想拔嘴人家？', '\
+一直叫，你想被淨灘嗎？', '\
+幫主你也敢嘴？', '\
+拔嘴的話，我的嘴巴會長出觸手，然後開花成四個花瓣哦 (´×`)', '\
+看看我！！我體內的怪物已經這麼大了！！', '\
+傳說中，凡是拔嘴過鴨嘴獸的人，有高機率在100年內死去。 \n我到底在共三小。', '\
+人類每花60秒拔嘴，就減少一分鐘的壽命。 \n我到底在共三小。', '\
+嘴被拔，就會掉。', '\
+你在大聲什麼啦！！！！', '\
+公道價，八萬一（伸手）。', '\
+你的嘴裡有異音（指）', '\
+幫主說，有人打你的左臉，你就要用肉食性猛擊咬斷他的小腿。'];
+          return rplyArr[Math.floor((Math.random() * (rplyArr.length)) + 0)];
+        }
