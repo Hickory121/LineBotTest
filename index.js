@@ -134,8 +134,8 @@ function nomalDiceRoller(inputStr){
     
   } 
   
-  else finalStr= '擲骰' + DiceCal(mutiOrNot.toString());
-  
+  else finalStr= '擲骰：' + DiceCal(mutiOrNot.toString());
+    
   if (finalStr.match('NaN')!= null||finalStr.match('undefined')!= null) return undefined;
   return finalStr;
 }
