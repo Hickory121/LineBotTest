@@ -99,7 +99,7 @@ function parseInput(rplyToken, inputStr) {
         if (trigger.match(/小樹吃ㄅㄅ/) != null) return randomReply2() ;     	
 
          //普通ROLL擲骰判定在此        
-     if (inputStr.match(/擲骰\w/)!=null && inputStr.toLowerCase().match(/\d+d+\d/)!=null) {
+     if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/\d+d+\d/)!=null) {
           return nomalDiceRoller(inputStr,mainMsg[0],mainMsg[1],mainMsg[2]);
         }
 	
