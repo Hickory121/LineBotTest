@@ -90,7 +90,7 @@ function parseInput(rplyToken, inputStr) {
         }                   
         //鴨霸獸指令開始於此
 
-          if (inputStr.match('UNSET未設定') != null) return YabasoReply(inputStr) ;
+          if (inputStr.match('鴨霸獸') != null) return YabasoReply(inputStr) ;
         else
         //cc判定在此
         if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
@@ -134,8 +134,8 @@ function nomalDiceRoller(inputStr){
     
   } 
   
-  else finalStr= '擲骰：' + DiceCal(mutiOrNot.toString());
-    
+  else finalStr= '基本擲骰：' + DiceCal(mutiOrNot.toString());
+  
   if (finalStr.match('NaN')!= null||finalStr.match('undefined')!= null) return undefined;
   return finalStr;
 }
@@ -181,7 +181,7 @@ function RollDice(inputStr){
   let finalStr = '(';
 
   for (let i = 1; i <= comStr.split('d')[0]; i++) {
-    finalStr = 'finalStr' + Dice(comStr.split('d')[1]) + '+';
+    finalStr = finalStr + Dice(comStr.split('d')[1]) + '+';
      }
 
   finalStr = finalStr.substring(0, finalStr.length - 1) + ')';
