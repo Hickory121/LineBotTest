@@ -93,12 +93,12 @@ function parseInput(rplyToken, inputStr) {
           if (inputStr.match('擲骰') != null) return YabasoReply(inputStr) ;
         else
         //cc判定在此
-//        if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
-  //      else
+        if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
+        else
         //擲骰判定在此        
-//        if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/d/)!=null) {
-  //        return nomalDiceRoller(inputStr);
-    //    }
+        if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/d/)!=null) {
+          return nomalDiceRoller(inputStr);
+        }
   
         
         else return undefined;
