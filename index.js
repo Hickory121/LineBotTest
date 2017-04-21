@@ -93,12 +93,12 @@ function parseInput(rplyToken, inputStr) {
           if (inputStr.match('擲骰') != null) return YabasoReply(inputStr) ;
         else
         //cc判定在此
-        if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
-        else
+//        if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
+  //      else
         //擲骰判定在此        
-        if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/d/)!=null) {
-          return nomalDiceRoller(inputStr);
-        }
+//        if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/d/)!=null) {
+  //        return nomalDiceRoller(inputStr);
+    //    }
   
         
         else return undefined;
@@ -200,13 +200,6 @@ function Dice(diceSided){
 
 function YabasoReply(inputStr) { 
  
-
-    
-  //以下是運勢功能
-  if(inputStr.match('運勢') != null){
-    let rplyArr=['超大吉','大吉','大吉','中吉','中吉','中吉','小吉','小吉','小吉','小吉','凶','凶','凶','大凶','大凶','你還是，不要知道比較好','這應該不關我的事'];
-    return '運勢喔…我覺得，' + rplyArr[Math.floor((Math.random() * (rplyArr.length)) + 0)] + '吧。';
-  } 
   
   //沒有觸發關鍵字則是這個
   else{
