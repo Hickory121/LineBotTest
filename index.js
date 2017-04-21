@@ -171,7 +171,7 @@ function parseInput(rplyToken, inputStr) {
     if (tempMatch.toString().split('d')[0]>300) return undefined;
     if (tempMatch.toString().split('d')[1]==1 || tempMatch.toString().split('d')[1]>1000000) return undefined;
     equation = equation.replace(/\d+d\d+/, RollDice(tempMatch));
-	return 'TEST'
+	
   }
   
   //計算算式
@@ -189,7 +189,7 @@ function parseInput(rplyToken, inputStr) {
 
   }
   
-  return finalStr;
+  ;
 
 
 }        
