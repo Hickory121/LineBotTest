@@ -189,7 +189,7 @@ function parseInput(rplyToken, inputStr) {
 
   }
   
-  ;
+  return finalStr;
 
 
 }        
