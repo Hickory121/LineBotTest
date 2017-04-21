@@ -134,7 +134,7 @@ function nomalDiceRoller(inputStr){
     
   } 
   
-  else finalStr= '(finalStr)' + DiceCal(mutiOrNot.toString());
+  else finalStr= (inputStr) + DiceCal(mutiOrNot.toString());
   
   if (finalStr.match('NaN')!= null||finalStr.match('undefined')!= null) return undefined;
   return finalStr;
