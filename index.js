@@ -181,7 +181,7 @@ function RollDice(inputStr){
   let finalStr = '(';
 
   for (let i = 1; i <= comStr.split('d')[0]; i++) {
-    finalStr = finalStr + Dice(comStr.split('d')[1]) + '+';
+    finalStr = 'finalStr' + Dice(comStr.split('d')[1]) + '+';
      }
 
   finalStr = finalStr.substring(0, finalStr.length - 1) + ')';
