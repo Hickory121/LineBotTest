@@ -96,7 +96,7 @@ function parseInput(rplyToken, inputStr) {
 		let trigger = mainMsg[0].toString().toLowerCase(); //指定啟動詞在第一個詞&把大階強制轉成細階
                            
         if (trigger.match(/薏仁吃ㄅㄅ/) != null) return randomReply() ;     
-	
+        if (trigger.match(/小樹吃ㄅㄅ/) != null) return randomReply2() ;     	
 
          //普通ROLL擲骰判定在此        
      if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/\d+d+\d/)!=null) {
@@ -284,5 +284,11 @@ function BuildRollDice(inputStr){
         function randomReply() {
           let rplyArr = ['\
 薏仁最愛吃ㄅㄅ'];
+          return rplyArr[Math.floor((Math.random() * (rplyArr.length)) + 0)];
+        }
+
+        function randomReply2() {
+          let rplyArr = ['\
+你才吃ㄅㄅ'];
           return rplyArr[Math.floor((Math.random() * (rplyArr.length)) + 0)];
         }
